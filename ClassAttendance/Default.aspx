@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <center><button runat="server" onserverclick="Unnamed_ServerClick" class="btn" style="color:white; background-color:black; font-size:1.5rem; margin:10px 0;">Login</button></center>
+                    <center><button runat="server" onserverclick="Login_Click" class="btn" style="color:white; background-color:black; font-size:1.5rem; margin:10px 0;">Login</button></center>
                 </div>
             </div>
         </div>
