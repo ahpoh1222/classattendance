@@ -22,7 +22,8 @@ namespace ClassAttendance.DA
         {
             try
             {
-                string ePass = Encrpt(password);
+                //string ePass = Encrpt(password);
+                string ePass = password;
 
                 con = new MySqlConnection(ConnString);
                 con.Open();
@@ -63,7 +64,7 @@ namespace ClassAttendance.DA
             }
         }
 
-        public static String Encrpt(String value)
+        public String Encrpt(String value)
         {
             StringBuilder Sb = new StringBuilder();
 
