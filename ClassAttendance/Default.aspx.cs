@@ -31,17 +31,21 @@ namespace ClassAttendance
                 //  1 = Teacher
                 Session["username"] = username;
                 lblError.InnerHtml = "";
+                Response.Redirect("ClassView.aspx");
             }
             else if( Login == "2")
             {
+                // 2 = Student
                 Session["username"] = username;
                 lblError.InnerHtml = "";
+                Response.Redirect("StudentPage.aspx");
             }
             else if(Login == "3")
             {
+                // 3 = Admin
                 Session["username"] = username;
                 lblError.InnerHtml = "";
-                Response.Redirect("Account/Login.aspx");
+                Response.Redirect("AdminPage.aspx");
             }
             else
             {
