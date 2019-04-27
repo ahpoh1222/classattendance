@@ -1,0 +1,14 @@
+ string[] AllLine = File.ReadAllLines(@"\\192.168.1.10\Users\queue.txt");
+            int line = 0;
+            foreach (string s in AllLine)
+            {
+                line += 1;
+                if (s.StartsWith(shift))
+                {
+                    int NextNumber = Convert.ToInt32(s.Substring(s.IndexOf("=") + 1).Trim()) + 1;
+                    AllLine[line - 1] = shift + " = " + NextNumber.ToString();
+                    File.WriteAllLines(HttpContext.Current.Server.MapPath("queue.txt"), AllLine);
+                    return NextNumber;
+                }
+            }
+            return 0;
