@@ -64,6 +64,36 @@ namespace ClassAttendance.DA
             }
         }
 
+        public string GetNameByUsername(string username)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT NAME FROM LOGINCREDENTIAL WHERE USERNAME = '{username}'";
+                cmd = new MySqlCommand(sql, con);
+
+                reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count > 0)
+                {
+                    return table.Rows[0]["NAME"].ToString();
+                }
+                else
+                {
+                    throw new Exception("Error when getting user's name");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public String Encrpt(String value)
         {
             StringBuilder Sb = new StringBuilder();
@@ -271,6 +301,269 @@ namespace ClassAttendance.DA
             catch (Exception ex)
             {
                 return ex.Message.ToString();
+            }
+        }
+
+        //fk STATIC
+        public static DataTable GetClassMacAddr(string c_id)
+        {
+            try
+            {
+                MySqlConnection con = new MySqlConnection("Server=localhost; database=classattendance; UID=root; password=;");
+                con.Open();
+
+                string sql = $"(SELECT a.NAME, b.MAC_ADDR FROM DEVICE AS b INNER JOIN STUDENT AS a ON b.S_ID = a.ID WHERE a.C_ID = '{c_id}')" +
+                             $"UNION" +
+                             $"(SELECT a.NAME, b.MAC_ADDR FROM STUDENT AS a LEFT JOIN DEVICE AS b ON a.ID = b.S_ID WHERE a.C_ID = '{c_id}')";
+                //string sql = $"SELECT a.NAME, b.MAC_ADDR FROM STUDENT AS a LEFT JOIN DEVICE ON a.ID = b.S_ID AND a.C_ID = '{c_id}'";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                return table;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public DataTable GetStudentList()
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT a.*, b.CLASS_CODE FROM (SELECT STUDENT.ID, STUDENT.STUDENT_ID, student.NAME, STUDENT.C_ID, (SELECT COUNT(*) FROM DEVICE WHERE DEVICE.S_ID = STUDENT.ID) AS NO FROM STUDENT) AS a INNER JOIN CLASS AS b ON a.C_ID = b.ID";
+                cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public DataTable GetTeacherList()
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT ID, USERNAME, NAME FROM LOGINCREDENTIAL WHERE ROLE = '1'";
+                cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable GetStudent(string id)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT a.C_ID, a.NAME, a.STUDENT_ID, b.USERNAME FROM STUDENT AS a INNER JOIN LOGINCREDENTIAL AS b ON a.L_ID = b.ID WHERE a.ID = {id}";
+                cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public DataTable GetTeacher(string id)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT USERNAME,PASSWORD,NAME FROM LOGINCREDENTIAL WHERE ID = '{id}' AND ROLE = '1'";
+                cmd = new MySqlCommand(sql, con);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string InsertStudentAccount(string studentID,string Name, string Username, string Password, string Class)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"INSERT INTO LOGINCREDENTIAL(USERNAME,PASSWORD,NAME,ROLE) VALUES('{Username}','{Password}','{Name}','2'); SELECT last_insert_id();";
+                cmd = new MySqlCommand(sql, con);
+                string L_ID = cmd.ExecuteScalar().ToString();
+
+                sql = $"INSERT INTO STUDENT(L_ID,C_ID,NAME,STUDENT_ID,STATUS) VALUES('{L_ID}','{Class}','{Name}','{studentID}','1')";
+                cmd = new MySqlCommand(sql, con);
+
+                cmd.ExecuteNonQuery();
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string InsertTeacherAccount(string Name, string Username, string Password)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"INSERT INTO LOGINCREDENTIAL(USERNAME,PASSWORD,NAME,ROLE) VALUES('{Username}','{Password}','{Name}','1'); SELECT last_insert_id();";
+                cmd = new MySqlCommand(sql, con);
+                string L_ID = cmd.ExecuteScalar().ToString();
+
+                sql = $"INSERT INTO TEACHER(L_ID,NAME,STATUS) VALUES('{L_ID}','{Name}','1')";
+                cmd = new MySqlCommand(sql, con);
+
+                cmd.ExecuteNonQuery();
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string UpdateStudentAccount(string id, string StudentID, string Name, string Username, string Class)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"UPDATE STUDENT SET C_ID = '{Class}', NAME = '{Name}', STUDENT_ID = '{StudentID}' WHERE ID = '{id}'; SELECT L_ID FROM STUDENT WHERE id = '{id}';";
+                cmd = new MySqlCommand(sql, con);
+                string L_ID = cmd.ExecuteScalar().ToString();
+
+                sql = $"UPDATE LOGINCREDENTIAL SET USERNAME = '{Username}', NAME = '{Name}' WHERE ID = '{L_ID}'";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                return "1";
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string UpdateTeacherAccount(string id, string Name, string Username)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"UPDATE TEACHER SET NAME = '{Name}' WHERE L_ID = '{id}'";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                sql = $"UPDATE LOGINCREDENTIAL SET USERNAME = '{Username}', NAME = '{Name}' WHERE ID = '{id}'";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string DeleteStudentAccount(string id)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"SELECT L_ID FROM STUDENT WHERE ID = '{id}'; DELETE FROM STUDENT WHERE ID = '{id}';";
+                cmd = new MySqlCommand(sql, con);
+                string L_ID = cmd.ExecuteScalar().ToString();
+
+                sql = $"DELETE FROM LOGINCREDENTIAL WHERE ID = '{L_ID}'";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string DeleteTeacherAccount(string id)
+        {
+            try
+            {
+                con = new MySqlConnection(ConnString);
+                con.Open();
+
+                string sql = $"DELETE FROM TEACHER WHERE L_ID = '{id}';";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                sql = $"DELETE FROM LOGINCREDENTIAL WHERE ID = '{id}'";
+                cmd = new MySqlCommand(sql, con);
+                cmd.ExecuteNonQuery();
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
             }
         }
 

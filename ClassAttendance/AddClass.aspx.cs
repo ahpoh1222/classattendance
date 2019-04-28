@@ -19,7 +19,7 @@ namespace ClassAttendance
             {
                 if (Session["username"] == null)
                 {
-                    Response.Write("<script>alert('window.close();')</script>");
+                    Response.Write("<script>window.close();</script>");
                 }
 
                 string type = Request.QueryString["action"].ToString();

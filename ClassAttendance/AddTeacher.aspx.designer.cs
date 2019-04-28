@@ -10,42 +10,51 @@
 namespace ClassAttendance {
     
     
-    public partial class AdminPage {
+    public partial class AddTeacher {
         
         /// <summary>
-        /// btnLogOut control.
+        /// txtName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnLogOut;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtName;
         
         /// <summary>
-        /// tblClass control.
+        /// txtUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tblClass;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUsername;
         
         /// <summary>
-        /// lblStudent control.
+        /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblStudent;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
         
         /// <summary>
-        /// lblTeacher control.
+        /// btnPerform control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTeacher;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnPerform;
+        
+        /// <summary>
+        /// btnDeletee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeletee;
     }
 }

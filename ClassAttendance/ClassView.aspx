@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassView.aspx.cs" Inherits="ClassAttendance.ClassView" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassView.aspx.cs" Inherits="ClassAttendance.S_Connected" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -8,8 +8,8 @@
             $('#divAll').show();
             $('#divResult').hide();
             $('#divLoading').show();
-            $('#lblCode').html = 'Code : ' + Code;
-            $('#lblRoom').html = 'Room : ' + Room;
+            $('#lblCode').html('Code : ' + Code);
+            $('#lblRoom').html('Room : ' + Room);
             var Param = { 'id': ClassID };
             $.ajax({
                 type: 'POST',
@@ -18,12 +18,15 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "JSON",
                 success: function (msg) {
-                    alert(msg.d);
+                    //alert(msg.d);
+                    var str = msg.d.split("|");
+                    $('#lblStudent').html(str[0]);
+                    $('#tblDetails').html(str[1]);
                     $('#divResult').show();
                     $('#divLoading').hide();
                 },
                 error: function (xhr, status, error) {
-                    alert('Error');
+                    alert(error);
                     $('#divResult').show();
                     $('#divLoading').hide();
                 }
@@ -34,6 +37,7 @@
 
     <div class="container" style="max-width: none;">
         <div class="row">
+            <button class="btn btn-danger" style="position:fixed; left:10px; top:10px;" runat="server" id="btnLogOut" onserverclick="btnLogOut_ServerClick">Log Out</button>
             <div class="col-sm-5" style="height: 80vh; border: 5px solid #0094ff; border-radius: 0.5rem; overflow: auto; padding-bottom: 15px; padding-top: 15px;">
                 <b style="font-size: 2.5rem;"><u>Class List</u></b>
                 <br />
@@ -56,17 +60,17 @@
                 <div id="divAll" style="display:none;">
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-sm-12" style="font-size: 2rem;">
-                            <label id="lblCode">Code : 331</label>
+                            <label id="lblCode"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12" style="font-size: 2rem;">
-                            <label id="lblRoom">Room : 222</label>
+                            <label id="lblRoom"></label>
                         </div>
                     </div>
                     <div class="row" id="divResult" style="display: block;">
                         <div class="col-sm-12" style="font-size: 2rem;">
-                            <label id="lblStudent">Students - 22 / 23</label>
+                            <label id="lblStudent"></label>
                         </div>
                         <br />
                         <table class="table" style="text-align: center;">
@@ -75,8 +79,10 @@
                                     <th style="text-align: center;">Student</th>
                                     <th style="text-align: center;">Device</th>
                                 </tr>
-                            </thead>
-                            <asp:PlaceHolder runat="server" ID="tblDetails"></asp:PlaceHolder>
+                            </thead>  
+                            <tbody id="tblDetails">
+
+                            </tbody>
                         </table>
                     </div>
                     <div class="row" id="divLoading" style="display: none;">

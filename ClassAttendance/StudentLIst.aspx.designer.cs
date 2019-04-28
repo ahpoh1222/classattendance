@@ -10,24 +10,15 @@
 namespace ClassAttendance {
     
     
-    public partial class S_Connected {
+    public partial class StudentLIst {
         
         /// <summary>
-        /// btnLogOut control.
+        /// tblStudent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnLogOut;
-        
-        /// <summary>
-        /// tblClass control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tblClass;
+        protected global::System.Web.UI.WebControls.PlaceHolder tblStudent;
     }
 }

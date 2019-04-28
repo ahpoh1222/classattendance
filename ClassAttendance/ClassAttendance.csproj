@@ -202,6 +202,8 @@
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="AddClass.aspx" />
+    <Content Include="AddStudent.aspx" />
+    <Content Include="AddTeacher.aspx" />
     <Content Include="AdminPage.aspx" />
     <Content Include="ClassView.aspx" />
     <Content Include="Contact.aspx" />
@@ -253,7 +255,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="StudentLIst.aspx" />
     <Content Include="StudentPage.aspx" />
+    <Content Include="TeacherList.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -381,6 +385,20 @@
     <Compile Include="AddClass.aspx.designer.cs">
       <DependentUpon>AddClass.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddStudent.aspx.cs">
+      <DependentUpon>AddStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddStudent.aspx.designer.cs">
+      <DependentUpon>AddStudent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddTeacher.aspx.cs">
+      <DependentUpon>AddTeacher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddTeacher.aspx.designer.cs">
+      <DependentUpon>AddTeacher.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage.aspx.cs">
       <DependentUpon>AdminPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -441,12 +459,26 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StudentLIst.aspx.cs">
+      <DependentUpon>StudentLIst.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentLIst.aspx.designer.cs">
+      <DependentUpon>StudentLIst.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StudentPage.aspx.cs">
       <DependentUpon>StudentPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StudentPage.aspx.designer.cs">
       <DependentUpon>StudentPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherList.aspx.cs">
+      <DependentUpon>TeacherList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeacherList.aspx.designer.cs">
+      <DependentUpon>TeacherList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

@@ -9,8 +9,9 @@
         
     </script>
 
-    <div class="container" style="max-width: none;">
+    <div class="container" style="max-width: none;"> 
         <div class="row">
+            <button class="btn btn-danger" style="position:fixed; left:10px; top:10px;" runat="server" id="btnLogOut" onserverclick="btnLogOut_ServerClick">Log Out</button>
             <div class="col-sm-6" style="height: 80vh; border: 5px solid #0094ff; border-radius: 0.5rem; overflow:auto; padding-bottom:15px; padding-top:15px;">
                    <b style="font-size:3rem;"><u>Class List</u></b><a class="btn btn-success" style="float:right;" onclick="lol('AddClass.aspx?action=Add&id=0'); return false;">Add New Class</a>
                     <br />
@@ -31,10 +32,10 @@
             <div class="col-sm-5" style="height: 80vh;  border: 5px solid #0094ff; border-radius: 0.5rem;">
                 <table style="height:100%; width:100%;">
                     <tr>
-                        <td style="text-align:center;"><b style="font-size:2.5rem;">Student List</b><br /><label runat="server" id="lblStudent">0 Students</label><br /><a class="btn btn-success">View</a></td>
+                        <td style="text-align:center;"><b style="font-size:2.5rem;">Student List</b><br /><label runat="server" id="lblStudent">0 Students</label><br /><a class="btn btn-success" href="StudentLIst.aspx">View</a></td>
                     </tr>
                     <tr>
-                        <td style="text-align:center; border-top:5px solid #0094ff;"><b style="font-size:2.5rem;">Teacher List</b><br /><label runat="server" id="lblTeacher">0 Teacher</label><br /><a class="btn btn-success">View</a></td>
+                        <td style="text-align:center; border-top:5px solid #0094ff;"><b style="font-size:2.5rem;">Teacher List</b><br /><label runat="server" id="lblTeacher">0 Teacher</label><br /><a class="btn btn-success" href="TeacherList.aspx">View</a></td>
                     </tr>
                 </table>
             </div>

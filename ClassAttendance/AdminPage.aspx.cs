@@ -56,5 +56,11 @@ namespace ClassAttendance
 
 
         }
+
+        protected void btnLogOut_ServerClick(object sender, EventArgs e)
+        {
+            Session["username"] = null;
+            Response.Redirect("Default.aspx");
+        }
     }
 }

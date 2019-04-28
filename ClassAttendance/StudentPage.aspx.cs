@@ -31,6 +31,8 @@ namespace ClassAttendance
                 id = Session["username"].ToString();
             }
 
+            lblName.InnerHtml = da.GetNameByUsername(id);
+
             String firstMacAddress = NetworkInterface
             .GetAllNetworkInterfaces()
             .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
